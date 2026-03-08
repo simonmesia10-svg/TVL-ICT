@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVL ICT - About</title>
+    <link rel="stylesheet" href="functions/Header/header.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header"></div>
+    <main>
+        <section>
+            <h2>About TVL ICT</h2>
+            <p>The TVL ICT strand prepares students for careers in information technology, including software development, network administration, and digital media.</p>
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <h3>Computer System Servicing</h3>
+                    <p>Learn to assemble, maintain, and repair computer systems.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Networking</h3>
+                    <p>Understand computer networks and network administration.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Troubleshooting</h3>
+                    <p>Diagnose and resolve computer hardware and software issues.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Maintenance</h3>
+                    <p>Perform preventive maintenance on computer systems.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>OHS</h3>
+                    <p>Learn occupational health and safety practices in ICT.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Computer Configuration</h3>
+                    <p>Configure hardware and software for optimal performance.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function loadSection(sectionId, htmlPath, jsPath, onloadCallback) {
+            fetch(htmlPath).then(res => res.text()).then(data => {
+                document.getElementById(sectionId).innerHTML = data;
+                if (jsPath) {
+                    const script = document.createElement('script');
+                    script.src = jsPath;
+                    script.onload = function() {
+                        if (typeof onloadCallback === 'function') {
+                            setTimeout(onloadCallback, 150);
+                        }
+                    };
+                    document.body.appendChild(script);
+                } else if (typeof onloadCallback === 'function') {
+                    onloadCallback();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSection('header', 'functions/Header/header.html', 'functions/Header/header.js', function() {
+                if (typeof setupHamburgerMenu === 'function') {
+                    setupHamburgerMenu();
+                }
+            });
+        });
+
+        // Always use dark mode
+        document.body.classList.add('dark-theme');
+
+        function loadGiscus() {
+            const commentsSection = document.createElement('div');
+            commentsSection.className = 'comments-section';
+            commentsSection.innerHTML = '<h3>Comments</h3>';
+
+            const script = document.createElement('script');
+            script.src = 'https://giscus.app/client.js';
+            script.setAttribute('data-repo', 'simonmesia10-svg/TEST');
+            script.setAttribute('data-repo-id', 'R_kgDORhYP0g');
+            script.setAttribute('data-category', 'General');
+            script.setAttribute('data-category-id', 'DIC_kwDORhYP0s4C38HR');
+            script.setAttribute('data-mapping', 'pathname');
+            script.setAttribute('data-strict', '0');
+            script.setAttribute('data-reactions-enabled', '1');
+            script.setAttribute('data-emit-metadata', '0');
+            script.setAttribute('data-input-position', 'bottom');
+            script.setAttribute('data-theme', 'dark_high_contrast');
+            script.setAttribute('data-lang', 'en');
+            script.setAttribute('crossorigin', 'anonymous');
+            script.async = true;
+
+            commentsSection.appendChild(script);
+            document.querySelector('main').appendChild(commentsSection);
+        }
+
+        window.addEventListener('load', loadGiscus);
+
+    </script>
+</body>
+</html>

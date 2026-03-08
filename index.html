@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TVL ICT Website</title>
+  <link rel="stylesheet" href="functions/Header/header.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="home-bg">
+  <div id="header"></div>
+  <main>
+    <h2>Welcome to TVL ICT</h2>
+    <p>This website provides resources and information for the TVL ICT strand in Senior High School.</p>
+    <p>Explore topics in programming, networking, web development, and more.</p>
+    <div class="portal-links">
+      <a href="about.html">About TVL ICT</a>
+      <a href="credits.html">Credits</a>
+      <a href="videos.html">Video Links</a>
+    </div>
+  </main>
+  <script>
+
+    function loadSection(sectionId, htmlPath, jsPath, onloadCallback) {
+      fetch(htmlPath).then(res => res.text()).then(data => {
+        document.getElementById(sectionId).innerHTML = data;
+        if (jsPath) {
+          const script = document.createElement('script');
+          script.src = jsPath;
+          script.onload = function() {
+            if (typeof onloadCallback === 'function') {
+              setTimeout(onloadCallback, 150);
+            }
+          };
+          document.body.appendChild(script);
+        } else if (typeof onloadCallback === 'function') {
+          onloadCallback();
+        }
+      });
+    }
+
+    loadSection(
+      'header',
+      'functions/Header/header.html',
+      'functions/Header/header.js',
+      function() {
+        if (typeof setupHamburgerMenu === 'function') {
+          setupHamburgerMenu();
+        }
+        if (typeof window.updateLoginSettingsLinks === 'function') {
+          window.updateLoginSettingsLinks();
+        }
+      }
+    );
+
+    // Always use dark mode
+    document.body.classList.add('dark-theme');
+
+  </script>
+</body>
+</html>

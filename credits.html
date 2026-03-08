@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVL ICT - Credits</title>
+    <link rel="stylesheet" href="functions/Header/header.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header"></div>
+    <main>
+        <section>
+            <h2>Credits</h2>
+            <div class="credits-content">
+                <p>This website was created as a resource for TVL ICT students.</p>
+                <div class="credit-item">
+                    <h3>Developed by:</h3>
+                    <p>[Your Name]</p>
+                </div>
+                <div class="credit-item">
+                    <h3>Special thanks to:</h3>
+                    <ul>
+                        <li>DepEd for the TVL curriculum</li>
+                        <li>Open source resources</li>
+                        <li>YouTube for educational content</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function loadSection(sectionId, htmlPath, jsPath, onloadCallback) {
+            fetch(htmlPath).then(res => res.text()).then(data => {
+                document.getElementById(sectionId).innerHTML = data;
+                if (jsPath) {
+                    const script = document.createElement('script');
+                    script.src = jsPath;
+                    script.onload = function() {
+                        if (typeof onloadCallback === 'function') {
+                            setTimeout(onloadCallback, 150);
+                        }
+                    };
+                    document.body.appendChild(script);
+                } else if (typeof onloadCallback === 'function') {
+                    onloadCallback();
+                }
+            });
+        }
+
+        loadSection('header', 'functions/Header/header.html', 'functions/Header/header.js', function() {
+            if (typeof setupHamburgerMenu === 'function') {
+                setupHamburgerMenu();
+            }
+        });
+
+        // Always use dark mode
+        document.body.classList.add('dark-theme');
+
+    </script>
+</body>
+</html>
