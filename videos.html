@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVL ICT - Video Links</title>
+    <link rel="stylesheet" href="functions/Header/header.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="home-bg">
+    <div id="header"></div>
+    <main>
+        <section>
+            <h2>Video Links</h2>
+            <p>Here are some useful video resources for TVL ICT:</p>
+            <div class="video-grid">
+                <div class="video-item">
+                    <a href="https://www.youtube.com/watch?v=example1" target="_blank">
+                        <img src="assets/images/nothumb.jpg" alt="Introduction to Programming">
+                        <h3>Introduction to Programming</h3>
+                    </a>
+                </div>
+                <div class="video-item">
+                    <a href="https://www.youtube.com/watch?v=example2" target="_blank">
+                        <img src="assets/images/nothumb.jpg" alt="Networking Basics">
+                        <h3>Networking Basics</h3>
+                    </a>
+                </div>
+                <div class="video-item">
+                    <a href="https://www.youtube.com/watch?v=example3" target="_blank">
+                        <img src="assets/images/nothumb.jpg" alt="Web Development Tutorial">
+                        <h3>Web Development Tutorial</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        function loadSection(sectionId, htmlPath, jsPath, onloadCallback) {
+            fetch(htmlPath).then(res => res.text()).then(data => {
+                document.getElementById(sectionId).innerHTML = data;
+                if (jsPath) {
+                    const script = document.createElement('script');
+                    script.src = jsPath;
+                    script.onload = function() {
+                        if (typeof onloadCallback === 'function') {
+                            setTimeout(onloadCallback, 150);
+                        }
+                    };
+                    document.body.appendChild(script);
+                } else if (typeof onloadCallback === 'function') {
+                    onloadCallback();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSection('header', 'functions/Header/header.html', 'functions/Header/header.js', function() {
+                if (typeof setupHamburgerMenu === 'function') {
+                    setupHamburgerMenu();
+                }
+            });
+        });
+
+        // Always use dark mode
+        document.body.classList.add('dark-theme');
+
+
+        const videoItems = document.querySelectorAll('.video-item a');
+        videoItems.forEach(item => {
+            const url = item.href;
+            const img = item.querySelector('img');
+            let thumbnailUrl = 'assets/images/nothumb.png';
+            if (url.includes('youtube.com/watch?v=')) {
+                const videoId = url.split('v=')[1].split('&')[0];
+                thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+            }
+            img.src = thumbnailUrl;
+            img.onerror = function() {
+                this.src = 'assets/images/nothumb.png';
+            };
+        });
+
+        function loadGiscus() {
+            const commentsSection = document.createElement('div');
+            commentsSection.className = 'comments-section';
+            commentsSection.innerHTML = '<h3>Comments</h3>';
+
+            const script = document.createElement('script');
+            script.src = 'https://giscus.app/client.js';
+            script.setAttribute('data-repo', 'simonmesia10-svg/TVL-ICT');
+            script.setAttribute('data-repo-id', 'R_kgDORhgKyQ');
+            script.setAttribute('data-category', 'General');
+            script.setAttribute('data-category-id', 'DIC_kwDORhgKyc4C38n7');
+            script.setAttribute('data-mapping', 'pathname');
+            script.setAttribute('data-strict', '0');
+            script.setAttribute('data-reactions-enabled', '1');
+            script.setAttribute('data-emit-metadata', '0');
+            script.setAttribute('data-input-position', 'bottom');
+            script.setAttribute('data-theme', 'preferred_color_scheme');
+            script.setAttribute('data-lang', 'en');
+            script.setAttribute('crossorigin', 'anonymous');
+            script.async = true;
+
+            commentsSection.appendChild(script);
+            document.querySelector('main').appendChild(commentsSection);
+        }
+
+        window.addEventListener('load', loadGiscus);
+
+    </script>
+</body>
+</html>

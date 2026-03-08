@@ -1,3 +1,5 @@
+![TVL ICT](assets/images/logo.png)
+
 ## 🌟 Welcome to TVL ICT
 
 **Welcome to the Technical-Vocational-Livelihood Information and Communications Technology (TVL-ICT) website!** 🎓
@@ -28,7 +30,6 @@ Planned topics include:
 - Networking Basics (LAN setup and IP addressing)  
 - Troubleshooting Common PC Issues  
 - PowerPoint Automation with VBA  
-
+- Game Scripting in Roblox Studio  
 
 💬 Your feedback matters. Drop a comment to vote or request a topic and be part of building this learning hub.
-

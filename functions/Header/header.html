@@ -1,0 +1,97 @@
+<!-- Header Section -->
+<header>
+  <div class="header-content">
+    <img src="assets/images/logo.png" alt="School Logo" class="school-logo">
+    <h1>
+      <span class="school-full">TVL ICT Website</span>
+      <span class="school-short">TVL ICT</span>
+    </h1>
+    <div class="hamburger" id="hamburgerMenu" aria-label="Open navigation" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="credits.html">Credits</a>
+    <a href="videos.html">Video Links</a>
+  </nav>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="credits.html">Credits</a>
+    <a href="videos.html">Video Links</a>
+  </div>
+</header>
+<script>
+
+function setupHamburgerMenu() {
+  const hamburger = document.getElementById('hamburgerMenu');
+  const mobileNav = document.getElementById('mobileNav');
+  if (hamburger && mobileNav) {
+    function showMobileNav() {
+      mobileNav.classList.add('open');
+      mobileNav.style.display = 'flex';
+    }
+    function hideMobileNav() {
+      mobileNav.classList.remove('open');
+      mobileNav.style.display = 'none';
+    }
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (mobileNav.classList.contains('open')) {
+        hideMobileNav();
+      } else {
+        showMobileNav();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!mobileNav.contains(e.target) && !hamburger.contains(e.target)) {
+        hideMobileNav();
+      }
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hideMobileNav();
+      });
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  var mobileNav = document.getElementById('mobileNav');
+  if (mobileNav) {
+    mobileNav.classList.remove('open');
+    mobileNav.style.display = 'none';
+  }
+
+  updateLoginSettingsLinks();
+  setupHamburgerMenu();
+});
+
+
+window.addEventListener('storage', updateLoginSettingsLinks);
+
+function updateLoginSettingsLinks() {
+  var isLoggedIn = !!localStorage.getItem('currentUserId');
+  var role = localStorage.getItem('currentUserRole');
+  var navLinks = document.querySelectorAll('nav a, .mobile-nav a');
+  navLinks.forEach(function(link) {
+    if (link.textContent.trim() === 'Settings') {
+      link.style.display = isLoggedIn ? '' : 'none';
+    }
+    if (link.textContent.trim() === 'Login') {
+      link.style.display = isLoggedIn ? 'none' : '';
+    }
+  });
+
+  var studentsProfileNav = document.getElementById('studentsProfileNav');
+  var studentsProfileNavMobile = document.getElementById('studentsProfileNavMobile');
+  if (studentsProfileNav) studentsProfileNav.style.display = '';
+  if (studentsProfileNavMobile) studentsProfileNavMobile.style.display = '';
+}
+</script>
